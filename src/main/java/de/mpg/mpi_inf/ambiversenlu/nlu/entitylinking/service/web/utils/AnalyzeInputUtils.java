@@ -54,9 +54,14 @@ public class AnalyzeInputUtils {
 
   public static DocumentAnnotations getDocumentAnnotationsfromAnalyzeInput(AnalyzeInput input) {
     DocumentAnnotations result = new DocumentAnnotations();
-    if (input.getAnnotatedMentions() != null) {
-      for (AnnotatedMention annotatedMention : input.getAnnotatedMentions()) {
-        result.addMention(annotatedMention.getCharOffset(), annotatedMention.getCharLength());
+    if (input.getAnnotatedMentionsNE() != null) {
+      for (AnnotatedMention annotatedMention : input.getAnnotatedMentionsNE()) {
+        result.addMention(annotatedMention.getCharOffset(), annotatedMention.getCharLength(), true);
+      }
+    }
+    if (input.getAnnotatedMentionsC() != null) {
+      for (AnnotatedMention annotatedMention : input.getAnnotatedMentionsC()) {
+        result.addMention(annotatedMention.getCharOffset(), annotatedMention.getCharLength(), false);
       }
     }
     return result;

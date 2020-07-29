@@ -69,7 +69,7 @@ public class AnalyzeResourceIntegrationTest extends JerseyTest {
     AnnotatedMention annotatedMention = new AnnotatedMention().withCharLength(3).withCharOffset(5);
 
     annotatedMentions.add(annotatedMention);
-    request.setAnnotatedMentions(annotatedMentions);
+    request.setAnnotatedMentionsNE(annotatedMentions);
 
     // Fire GET request and get the response
     Response response = target(PATH).request(MediaType.APPLICATION_JSON_TYPE)
@@ -104,7 +104,7 @@ public class AnalyzeResourceIntegrationTest extends JerseyTest {
     AnnotatedMention annotatedMention = new AnnotatedMention();
     annotatedMention.withCharLength(3).withCharOffset(5);
     annotatedMentions.add(annotatedMention);
-    request.setAnnotatedMentions(annotatedMentions);
+    request.setAnnotatedMentionsNE(annotatedMentions);
 
     // Fire GET request and get the response
     Response response = target(PATH).request(MediaType.APPLICATION_JSON_TYPE)
@@ -133,7 +133,7 @@ public class AnalyzeResourceIntegrationTest extends JerseyTest {
     AnnotatedMention annotatedMention = new AnnotatedMention();
     annotatedMention.withCharLength(3).withCharOffset(5);
     annotatedMentions.add(annotatedMention);
-    request.setAnnotatedMentions(annotatedMentions);
+    request.setAnnotatedMentionsNE(annotatedMentions);
 
     // Fire GET request and get the response
     Response response = target(PATH).request(MediaType.APPLICATION_JSON_TYPE)

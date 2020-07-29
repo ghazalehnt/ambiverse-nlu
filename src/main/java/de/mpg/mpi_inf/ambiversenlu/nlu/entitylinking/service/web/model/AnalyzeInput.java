@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL) @Generated("org.jsonschema2pojo") @JsonPropertyOrder({
-    "docId", "language", "text", "confidenceThreshold", "coherentDocument", "annotatedMentions" }) public class AnalyzeInput {
+    "docId", "language", "text", "confidenceThreshold", "coherentDocument", "annotatedMentionsNE", "annotatedMentionsC"}) public class AnalyzeInput {
 
   /**
    * Will be part of the response so that you can identify your documents.
@@ -48,10 +48,16 @@ import java.util.Map;
   @JsonProperty("extractConcepts") private Boolean extractConcepts;
 
   /**
-   * Mentions provided by the user
+   * Named entity mentions provided by the user
    *
    */
-  @JsonProperty("annotatedMentions") private List<AnnotatedMention> annotatedMentions;
+  @JsonProperty("annotatedMentionsNE") private List<AnnotatedMention> annotatedMentionsNE;
+
+  /**
+   * Concept mentions provided by the user
+   *
+   */
+  @JsonProperty("annotatedMentionsC") private List<AnnotatedMention> annotatedMentionsC;
 
   @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -211,24 +217,49 @@ import java.util.Map;
    * Get the fragments of the input document which have been manually marked as entity names (i.e. so-called <i>mentions</i>).
    *
    * @return
-   *     List of annotated mentions
+   *     List of annotated named entity mentions
    */
-  @JsonProperty("annotatedMentions") public List<AnnotatedMention> getAnnotatedMentions() {
-    return annotatedMentions;
+  @JsonProperty("annotatedMentionsNE") public List<AnnotatedMention> getAnnotatedMentionsNE() {
+    return annotatedMentionsNE;
+  }
+
+  /**
+   * Get the fragments of the input document which have been manually marked as concepts (i.e. so-called <i>mentions</i>).
+   *
+   * @return
+   *     List of annotated concept mentions
+   */
+  @JsonProperty("annotatedMentionsC") public List<AnnotatedMention> getAnnotatedMentionsC() {
+    return annotatedMentionsC;
   }
 
   /**
    * Manually mark specific fragments of the input document as entity names (i.e. so-called <i>mentions</i>), which will then be attempted to be linked to the knowledge graph.
    *
-   * @param annotatedMentions
-   *     List of annotated mentions
+   * @param annotatedMentionsNE
+   *     List of annotated named entity mentions
    */
-  @JsonProperty("annotatedMentions") public void setAnnotatedMentions(List<AnnotatedMention> annotatedMentions) {
-    this.annotatedMentions = annotatedMentions;
+  @JsonProperty("annotatedMentionsNE") public void setAnnotatedMentionsNE(List<AnnotatedMention> annotatedMentions) {
+    this.annotatedMentionsNE = annotatedMentions;
   }
 
-  public AnalyzeInput withAnnotatedMentions(List<AnnotatedMention> annotatedMentions) {
-    this.annotatedMentions = annotatedMentions;
+  public AnalyzeInput withAnnotatedMentionsNE(List<AnnotatedMention> annotatedMentions) {
+    this.annotatedMentionsNE = annotatedMentions;
+    return this;
+  }
+
+  /**
+   * Manually mark specific fragments of the input document as concepts (i.e. so-called <i>mentions</i>), which will then be attempted to be linked to the knowledge graph.
+   *
+   * @param annotatedMentionsC
+   *     List of annotated concept mentions
+   */
+  @JsonProperty("annotatedMentionsC") public void setAnnotatedMentionsC(List<AnnotatedMention> annotatedMentions) {
+    this.annotatedMentionsC = annotatedMentions;
+  }
+
+  public AnalyzeInput withAnnotatedMentionsC(List<AnnotatedMention> annotatedMentions) {
+    this.annotatedMentionsC = annotatedMentions;
     return this;
   }
 
@@ -247,6 +278,7 @@ import java.util.Map;
 
   @Override public String toString() {
     return "AnalyzeInput{" + "docId='" + docId + '\'' + ", language='" + language + '\'' + ", text='" + text + '\'' + ", confidenceThreshold="
-        + confidenceThreshold + ", coherentDocument=" + coherentDocument + ", annotatedMentions=" + annotatedMentions + '}';
+        + confidenceThreshold + ", coherentDocument=" + coherentDocument
+        + ", annotatedMentionsNE=" + annotatedMentionsNE + ", annotatedMentionsC=" + annotatedMentionsC + '}';
   }
 }

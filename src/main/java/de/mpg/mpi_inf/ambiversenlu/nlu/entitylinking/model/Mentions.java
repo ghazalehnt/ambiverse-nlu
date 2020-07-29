@@ -206,7 +206,13 @@ public class Mentions implements Serializable {
   public static Mentions getConceptMentionsFromJCas(JCas jCas) {
     Mentions mentions = new Mentions();
     for(ConceptMention c: select(jCas, ConceptMention.class)) {
-      Mention mention = new Mention(c.getConcept(), c.getBegin(), c.getEnd(), c.getBegin(), c.getEnd(), 0); //c.getCoveredText() replaced by getConcept(), to allow fuzzy concepts
+      Mention mention;
+      if (c.getConcept().isEmpty())
+         mention = new Mention(c.getCoveredText(), c.getBegin(), c.getEnd(), c.getBegin(), c.getEnd(), 0); //c.getCoveredText() replaced by getConcept(), to allow fuzzy concepts
+      else {
+        System.out.println("Mention.java@213: c.getConcept() is not empty: "+c.getConcept());
+        mention = new Mention(c.getConcept(), c.getBegin(), c.getEnd(), c.getBegin(), c.getEnd(), 0); //c.getCoveredText() replaced by getConcept(), to allow fuzzy concepts
+      }
       mention.setCharOffset(c.getBegin());
       mention.setCharLength(c.getEnd() - c.getBegin());
       

@@ -28,7 +28,7 @@ public class EntityLinkingManagerTest {
     Document.Builder dbuilder = new Document.Builder();
     dbuilder.withText(text).withLanguage(Language.getLanguageForString("en")).withDisambiguationSettings(new DisambiguationSettings.Builder().build());
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(0, 3, true;
+    annotations.addMention(0, 3, true);
     annotations.addMention(8, 3, true);
     annotations.addMention(16, 3, true);
     annotations.addMention(24, 5, true);

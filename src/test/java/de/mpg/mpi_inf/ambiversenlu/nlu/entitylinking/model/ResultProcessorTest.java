@@ -31,9 +31,9 @@ public class ResultProcessorTest {
     docbuilder.withText("Page played Kashmir at Knebworth.");
 
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(0, 4);
-    annotations.addMention(12, 7);
-    annotations.addMention(23, 9);
+    annotations.addMention(0, 4, true);
+    annotations.addMention(12, 7, true);
+    annotations.addMention(23, 9, true);
     docbuilder.withAnnotations(annotations);
 
     DisambiguationSettings settings = new CocktailPartyLangaugeModelDefaultDisambiguationSettings();

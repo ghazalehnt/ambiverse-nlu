@@ -39,7 +39,7 @@ public class CocktailPartySizeConstrainedTest {
     settings.setComputeConfidence(false);
     docbuilder.withDisambiguationSettings(settings);
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(5,4);
+    annotations.addMention(5,4, true);
     docbuilder.withAnnotations(annotations);
 
     DocumentProcessor dp = DocumentProcessor.getInstance(PipelineType.DISAMBIGUATION_STANFORD);

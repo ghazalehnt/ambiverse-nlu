@@ -44,8 +44,8 @@ public class DisambiguatorRealDBIntegrationTest {
     Document.Builder dbuilder = new Document.Builder();
     dbuilder.withText(text).withDisambiguationSettings(new DisambiguationSettings.Builder().build());;
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(99,7);
-    annotations.addMention(125,12);
+    annotations.addMention(99,7, true);
+    annotations.addMention(125,12, true);
     dbuilder.withAnnotations(annotations);
 
 
@@ -105,9 +105,9 @@ public class DisambiguatorRealDBIntegrationTest {
     Document.Builder dbuilder = new Document.Builder();
     dbuilder.withText(text).withDisambiguationSettings(new DisambiguationSettings.Builder().build());
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(5, 3);
-    annotations.addMention(16, 5);
-    annotations.addMention(25, 8);
+    annotations.addMention(5, 3, true);
+    annotations.addMention(16, 5, true);
+    annotations.addMention(25, 8, true);
     dbuilder.withAnnotations(annotations);
     Document doc = dbuilder.build();
 

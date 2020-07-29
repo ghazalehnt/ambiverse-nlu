@@ -36,7 +36,7 @@ public class EntitySalienceTest {
         Document.Builder dbuilder = new Document.Builder();
         dbuilder.withText(text).withDisambiguationSettings(new DisambiguationSettings.Builder().build());
         DocumentAnnotations annotations = new DocumentAnnotations();
-        annotations.addMention(5,4);
+        annotations.addMention(5,4, true);
         dbuilder.withAnnotations(annotations);
         Document doc = dbuilder.build();
 

@@ -35,7 +35,7 @@ public class CocktailPartyTest {
     docbuilder.withId("testPageKashmir1");
     docbuilder.withText("When Page played Kashmir at Knebworth, his Les Paul was uniquely tuned.");
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(5,4);
+    annotations.addMention(5,4, true);
     docbuilder.withAnnotations(annotations);
 
     DisambiguationSettings settings = new CocktailPartyLangaugeModelDefaultDisambiguationSettings();

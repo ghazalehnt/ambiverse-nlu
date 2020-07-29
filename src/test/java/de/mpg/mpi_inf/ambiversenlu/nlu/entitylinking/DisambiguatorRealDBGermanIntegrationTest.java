@@ -41,7 +41,7 @@ public class DisambiguatorRealDBGermanIntegrationTest {
     Document.Builder dbuilder = new Document.Builder();
     dbuilder.withText(text);
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(55,3);
+    annotations.addMention(55,3, true);
     dbuilder.withAnnotations(annotations);
     Document doc = dbuilder.build();
 

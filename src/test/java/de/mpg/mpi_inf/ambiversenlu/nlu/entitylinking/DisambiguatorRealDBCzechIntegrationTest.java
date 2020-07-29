@@ -39,8 +39,8 @@ public class DisambiguatorRealDBCzechIntegrationTest {
     Document.Builder dbuilder = new Document.Builder();
     dbuilder.withText(text).withDisambiguationSettings(new DisambiguationSettings.Builder().build());
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(0,8);
-    annotations.addMention(163,6);
+    annotations.addMention(0,8, true);
+    annotations.addMention(163,6, true);
     dbuilder.withAnnotations(annotations);
 
     Document doc = dbuilder.build();

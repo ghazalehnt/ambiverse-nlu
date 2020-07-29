@@ -34,7 +34,7 @@ public class DocumentAnnotationsTest {
     DocumentProcessor processor = DocumentProcessor.getInstance(PipelineType.DISAMBIGUATION_STANFORD);
 
     DocumentAnnotations annotations = new DocumentAnnotations();
-    annotations.addMention(43, 25);
+    annotations.addMention(43, 25, true);
 
     Document.Builder builder = new Document.Builder();
     builder.withLanguage(Language.getLanguageForString("en"))

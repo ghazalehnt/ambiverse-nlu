@@ -74,10 +74,15 @@ public class AnalyzeResourceImpl implements AnalyzeResource {
       // Process the input document with the document processor.
       Document doc = AnalyzeInputUtils.getDocumentfromAnalyzeInput(input);
       PipelineType pipelineType;
-      if (input.getExtractConcepts() != null && input.getExtractConcepts()) {
+      if (input.getPipeline() != null) {
+        pipelineType = input.getPipeline();
+      }
+      else {
+        if (input.getExtractConcepts() != null && input.getExtractConcepts()) {
           pipelineType = getConceptSaliencePipelineByNerConfig();
-      } else {
-        pipelineType = getSaliencePipelineByNerConfig();
+        } else {
+          pipelineType = getSaliencePipelineByNerConfig();
+        }
       }
 
       DocumentProcessor dp = DocumentProcessor.getInstance(pipelineType);

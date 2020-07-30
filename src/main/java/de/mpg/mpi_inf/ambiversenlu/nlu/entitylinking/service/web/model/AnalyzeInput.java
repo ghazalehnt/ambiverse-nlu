@@ -1,6 +1,7 @@
 package de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.service.web.model;
 
 import com.fasterxml.jackson.annotation.*;
+import de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.uima.pipelines.PipelineType;
 
 import javax.annotation.Generated;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL) @Generated("org.jsonschema2pojo") @JsonPropertyOrder({
-    "docId", "language", "text", "confidenceThreshold", "coherentDocument", "annotatedMentionsNE", "annotatedMentionsC"}) public class AnalyzeInput {
+    "docId", "language", "text", "confidenceThreshold", "coherentDocument", "annotatedMentionsNE", "annotatedMentionsC", "pipeline"}) public class AnalyzeInput {
 
   /**
    * Will be part of the response so that you can identify your documents.
@@ -21,6 +22,12 @@ import java.util.Map;
    *
    */
   @JsonProperty("language") private String language;
+
+  /**
+   * Pipeline
+   *
+   */
+  @JsonProperty("pipeline") private PipelineType pipeline;
 
   /**
    * The natural-language text to analyze.
@@ -97,6 +104,16 @@ import java.util.Map;
   }
 
   /**
+   * Pipeline
+   *
+   * @return
+   *     The pipeline
+   */
+  @JsonProperty("pipeline") public PipelineType getPipeline() {
+    return pipeline;
+  }
+
+  /**
    * Language of the input text.
    *
    * @param language
@@ -108,6 +125,19 @@ import java.util.Map;
 
   public AnalyzeInput withLanguage(String language) {
     this.language = language;
+    return this;
+  }
+
+  /**
+   * Pipeline
+   *
+   * @return
+   *     The pipeline
+   */
+  @JsonProperty("pipeline") public void setPipeline(PipelineType pipeline) { this.pipeline = pipeline; }
+
+  public AnalyzeInput withPipeline(PipelineType pipeline) {
+    this.pipeline = pipeline;
     return this;
   }
 
@@ -279,6 +309,6 @@ import java.util.Map;
   @Override public String toString() {
     return "AnalyzeInput{" + "docId='" + docId + '\'' + ", language='" + language + '\'' + ", text='" + text + '\'' + ", confidenceThreshold="
         + confidenceThreshold + ", coherentDocument=" + coherentDocument
-        + ", annotatedMentionsNE=" + annotatedMentionsNE + ", annotatedMentionsC=" + annotatedMentionsC + '}';
+        + ", annotatedMentionsNE=" + annotatedMentionsNE + ", annotatedMentionsC=" + annotatedMentionsC + ", pipeline=" + pipeline + '}';
   }
 }

@@ -318,28 +318,30 @@ import java.util.Map;
     return this;
   }
 
-  /**
-   * Get the filtering types for entities.
-   *
-   * @return
-   *     List of filtering types.
-   */
-  @JsonProperty("filteringTypes") public List<Type> getFilteringTypes() {
-    return filteringTypes;
-  }
+// TODO: if we want to implement such thing, we sould implement a model Type... to read this and so on. maybe later
 
-  @JsonProperty("filteringTypes") public void setFilteringTypes(List<Type> filteringTypes) {
-    this.filteringTypes = filteringTypes;
-  }
-
-  public AnalyzeInput withFilteringTypes(List<Type> filteringTypes) {
-    this.filteringTypes = filteringTypes;
-    return this;
-  }
+//  /**
+//   * Get the filtering types for entities.
+//   *
+//   * @return
+//   *     List of filtering types.
+//   */
+//  @JsonProperty("filteringTypes") public List<Type> getFilteringTypes() {
+//    return filteringTypes;
+//  }
+//
+//  @JsonProperty("filteringTypes") public void setFilteringTypes(List<Type> filteringTypes) {
+//    this.filteringTypes = filteringTypes;
+//  }
+//
+//  public AnalyzeInput withFilteringTypes(List<Type> filteringTypes) {
+//    this.filteringTypes = filteringTypes;
+//    return this;
+//  }
 
   @Override public String toString() {
     return "AnalyzeInput{" + "docId='" + docId + '\'' + ", language='" + language + '\'' + ", text='" + text + '\'' + ", confidenceThreshold="
         + confidenceThreshold + ", coherentDocument=" + coherentDocument
-        + ", annotatedMentionsNE=" + annotatedMentionsNE + ", annotatedMentionsC=" + annotatedMentionsC + ", pipeline=" + pipeline + ", filteringTypes= " + filteringTypes +'}';
+        + ", annotatedMentionsNE=" + annotatedMentionsNE + ", annotatedMentionsC=" + annotatedMentionsC + ", pipeline=" + pipeline +'}';
   }
 }

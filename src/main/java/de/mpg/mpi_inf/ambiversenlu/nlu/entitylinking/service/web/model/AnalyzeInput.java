@@ -135,9 +135,14 @@ import java.util.Map;
    *     The pipeline
    */
   @JsonProperty("pipeline") public void setPipeline(PipelineType pipeline) { this.pipeline = pipeline; }
+  @JsonProperty("pipeline") public void setPipeline(String pipelineName) { this.pipeline = PipelineType.valueOf(pipelineName); }
 
   public AnalyzeInput withPipeline(PipelineType pipeline) {
     this.pipeline = pipeline;
+    return this;
+  }
+  public AnalyzeInput withPipeline(String pipelineName) {
+    this.pipeline = PipelineType.valueOf(pipelineName);
     return this;
   }
 

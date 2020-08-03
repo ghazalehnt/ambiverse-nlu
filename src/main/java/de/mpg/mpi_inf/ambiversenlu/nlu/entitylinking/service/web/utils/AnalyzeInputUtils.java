@@ -2,6 +2,7 @@ package de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.service.web.utils;
 
 import de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.config.settings.DisambiguationSettings;
 import de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.graph.similarity.exception.MissingSettingException;
+import de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.model.Type;
 import de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.service.web.model.AnalyzeInput;
 import de.mpg.mpi_inf.ambiversenlu.nlu.entitylinking.service.web.model.AnnotatedMention;
 import de.mpg.mpi_inf.ambiversenlu.nlu.language.Language;
@@ -47,8 +48,11 @@ public class AnalyzeInputUtils {
       disBuilder.withNullMappingThreshold(confidenceThreshold);
     }
 
+    disBuilder.withFilteringTypes(input.getFilteringTypes().toArray(new Type[0]));
+
     docBuilder.withDisambiguationSettings(disBuilder.build());
     docBuilder.withAnnotations(getDocumentAnnotationsfromAnalyzeInput(input));
+
     return docBuilder.build();
   }
 

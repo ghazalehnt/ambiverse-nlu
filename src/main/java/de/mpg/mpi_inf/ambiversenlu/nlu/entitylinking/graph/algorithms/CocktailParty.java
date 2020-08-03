@@ -105,7 +105,7 @@ public class CocktailParty extends DisambiguationAlgorithm {
 	}
 
   public Map<ResultMention, List<ResultEntity>> disambiguate() throws Exception {
-    return disambiguateNamedEntities();//Here we can have different disambiguate functions for Concept/NE/Joint
+    return disambiguateNamedEntities();//Here we can have different disambiguate functions for Concept/NE/Joint now they are all in this function
   }
   
 

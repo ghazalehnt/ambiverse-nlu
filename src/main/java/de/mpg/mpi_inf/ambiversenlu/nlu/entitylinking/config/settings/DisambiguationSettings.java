@@ -436,6 +436,10 @@ public class DisambiguationSettings implements Serializable {
 //      SimilaritySettings unnormalizedKPsettings = new SimilaritySettings(cohRobProp, "CoherenceRobustnessTestC");
 //      ds.getGraphSettings().setCoherenceSimilaritySettingC(unnormalizedKPsettings);
     }
+
+    if (builder.filteringTypes != null) {
+      ds.setFilteringTypes(builder.filteringTypes);
+    }
           
     return ds;
   }
@@ -496,6 +500,8 @@ public class DisambiguationSettings implements Serializable {
     private String similaritySettingNameC = null;
     
     private String trainingCorpus = null;
+
+    private Type[] filteringTypes = null;
     
     
     public Builder withDisambiguationMethod(DISAMBIGUATION_METHOD disambiguationMethod) {
@@ -592,6 +598,11 @@ public class DisambiguationSettings implements Serializable {
       return this;
     }
 
+    public Builder withFilteringTypes(Type[] filteringTypes) {
+      this.filteringTypes = filteringTypes;
+      return this;
+    }
+
     public String toStringBeautiful() {
       List<String> results = new ArrayList<>();
       if (trainingCorpus != null) {
@@ -623,6 +634,10 @@ public class DisambiguationSettings implements Serializable {
       }
       if (computeConfidence != null) {
         results.add(computeConfidence+"-confCheck");
+      }
+
+      if (filteringTypes != null) {
+        results.add(filteringTypes+"-filteringTypes");
       }
 
       return String.join("_", results);

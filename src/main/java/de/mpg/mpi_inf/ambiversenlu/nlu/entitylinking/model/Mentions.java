@@ -7,6 +7,7 @@ import org.apache.uima.jcas.JCas;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Logger;
 
 import static org.apache.uima.fit.util.JCasUtil.select;
 
@@ -210,7 +211,7 @@ public class Mentions implements Serializable {
     for(ConceptMention c: select(jCas, ConceptMention.class)) {
       if (c.getConcept() == null)
         c.setConcept(c.getCoveredText());
-      Mention mention = mention = new Mention(c.getConcept(), c.getBegin(), c.getEnd(), c.getBegin(), c.getEnd(), 0);//c.getCoveredText() replaced by getConcept(), to allow fuzzy concepts 
+      Mention mention = mention = new Mention(c.getConcept(), c.getBegin(), c.getEnd(), c.getBegin(), c.getEnd(), 0);//c.getCoveredText() replaced by getConcept(), to allow fuzzy concepts
       mention.setCharOffset(c.getBegin());
       mention.setCharLength(c.getEnd() - c.getBegin());
       

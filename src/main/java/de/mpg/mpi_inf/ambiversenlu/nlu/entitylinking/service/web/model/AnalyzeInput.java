@@ -11,7 +11,7 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL) @Generated("org.jsonschema2pojo") @JsonPropertyOrder({
     "docId", "language", "text", "confidenceThreshold", "coherentDocument",
-        "annotatedMentionsNE", "annotatedMentionsC", "pipeline", "filteringTypes"}) public class AnalyzeInput {
+        "annotatedMentionsNE", "annotatedMentionsC", "pipeline", "filteringTypes", "textTopic"}) public class AnalyzeInput {
 
   /**
    * Will be part of the response so that you can identify your documents.
@@ -30,6 +30,12 @@ import java.util.Map;
    *
    */
   @JsonProperty("pipeline") private PipelineType pipeline;
+
+  /**
+   * Topic of the input text.
+   *
+   */
+  @JsonProperty("textTopic") private String textTopic;
 
   /**
    * The natural-language text to analyze.
@@ -111,6 +117,16 @@ import java.util.Map;
   }
 
   /**
+   * Topic of the input text.
+   *
+   * @return
+   *     The textTopic
+   */
+  @JsonProperty("textTopic") public String getTextTopic() {
+    return textTopic;
+  }
+
+  /**
    * Pipeline
    *
    * @return
@@ -132,6 +148,21 @@ import java.util.Map;
 
   public AnalyzeInput withLanguage(String language) {
     this.language = language;
+    return this;
+  }
+
+  /**
+   * Topic of the input text.
+   *
+   * @param textTopic
+   *     The textTopic
+   */
+  @JsonProperty("textTopic") public void setTextTopic(String textTopic) {
+    this.textTopic =  textTopic;
+  }
+
+  public AnalyzeInput withTextTopic(String textTopic) {
+    this.textTopic = textTopic;
     return this;
   }
 
@@ -318,28 +349,30 @@ import java.util.Map;
     return this;
   }
 
-  /**
-   * Get the filtering types for entities.
-   *
-   * @return
-   *     List of filtering types.
-   */
-  @JsonProperty("filteringTypes") public List<Type> getFilteringTypes() {
-    return filteringTypes;
-  }
+// TODO: if we want to implement such thing, we sould implement a model Type... to read this and so on. maybe later
 
-  @JsonProperty("filteringTypes") public void setFilteringTypes(List<Type> filteringTypes) {
-    this.filteringTypes = filteringTypes;
-  }
-
-  public AnalyzeInput withFilteringTypes(List<Type> filteringTypes) {
-    this.filteringTypes = filteringTypes;
-    return this;
-  }
+//  /**
+//   * Get the filtering types for entities.
+//   *
+//   * @return
+//   *     List of filtering types.
+//   */
+//  @JsonProperty("filteringTypes") public List<Type> getFilteringTypes() {
+//    return filteringTypes;
+//  }
+//
+//  @JsonProperty("filteringTypes") public void setFilteringTypes(List<Type> filteringTypes) {
+//    this.filteringTypes = filteringTypes;
+//  }
+//
+//  public AnalyzeInput withFilteringTypes(List<Type> filteringTypes) {
+//    this.filteringTypes = filteringTypes;
+//    return this;
+//  }
 
   @Override public String toString() {
     return "AnalyzeInput{" + "docId='" + docId + '\'' + ", language='" + language + '\'' + ", text='" + text + '\'' + ", confidenceThreshold="
         + confidenceThreshold + ", coherentDocument=" + coherentDocument
-        + ", annotatedMentionsNE=" + annotatedMentionsNE + ", annotatedMentionsC=" + annotatedMentionsC + ", pipeline=" + pipeline + ", filteringTypes= " + filteringTypes +'}';
+        + ", annotatedMentionsNE=" + annotatedMentionsNE + ", annotatedMentionsC=" + annotatedMentionsC + ", pipeline=" + pipeline +'}';
   }
 }

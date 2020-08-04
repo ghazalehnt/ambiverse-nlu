@@ -38,6 +38,11 @@ public class DisambiguationSettings implements Serializable {
   private static Logger logger = LoggerFactory.getLogger(DisambiguationSettings.class);
 
 
+  /**
+   * The topic of the input text / used in some experiments to load filteringTypes from static files.
+   */
+  private String textTopic;
+
   private Type[] filteringTypes;
 
   /**
@@ -296,6 +301,14 @@ public class DisambiguationSettings implements Serializable {
     this.trainingCorpus = trainingCorpus;
   }
 
+  public String getTextTopic() {
+    return textTopic;
+  }
+
+  public void setTextTopic(String textTopic) {
+    this.textTopic = textTopic;
+  }
+
   public Map<String, Object> getAsMap() {
     Map<String, Object> s = new HashMap<String, Object>();
     if (disambiguationTechnique != null) {
@@ -321,6 +334,9 @@ public class DisambiguationSettings implements Serializable {
     }
     if (graphSettings != null) {
       s.put("graphSettings", graphSettings.getAsMap());
+    }
+    if (textTopic != null) {
+      s.put("textTopic", textTopic);
     }
     return s;
   }
@@ -502,6 +518,8 @@ public class DisambiguationSettings implements Serializable {
     private String trainingCorpus = null;
 
     private Type[] filteringTypes = null;
+
+    private String textTopic = null;
     
     
     public Builder withDisambiguationMethod(DISAMBIGUATION_METHOD disambiguationMethod) {
@@ -603,6 +621,11 @@ public class DisambiguationSettings implements Serializable {
       return this;
     }
 
+    public Builder withTextTopic(String textTopic) {
+      this.textTopic = textTopic;
+      return this;
+    }
+
     public String toStringBeautiful() {
       List<String> results = new ArrayList<>();
       if (trainingCorpus != null) {
@@ -638,6 +661,10 @@ public class DisambiguationSettings implements Serializable {
 
       if (filteringTypes != null) {
         results.add(filteringTypes+"-filteringTypes");
+      }
+
+      if (textTopic != null) {
+        results.add(textTopic+"-textTopic");
       }
 
       return String.join("_", results);

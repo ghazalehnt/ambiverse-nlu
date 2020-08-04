@@ -48,11 +48,15 @@ public class AnalyzeInputUtils {
     if (confidenceThreshold != null) {
       disBuilder.withNullMappingThreshold(confidenceThreshold);
     }
-    
-    List<Type>  filteringTypes = input.getFilteringTypes();
-    if (filteringTypes != null) {
-    	System.out.println("HERE: " + filteringTypes);
-	disBuilder.withFilteringTypes(filteringTypes.toArray(new Type[0]));
+
+//    List<Type>  filteringTypes = input.getFilteringTypes();
+//    if (filteringTypes != null) {
+//      System.out.println("HERE: " + filteringTypes);
+//      disBuilder.withFilteringTypes(filteringTypes.toArray(new Type[0]));
+//    }
+
+    if (input.getTextTopic() != null) {
+      disBuilder.withTextTopic(input.getTextTopic());
     }
 
     docBuilder.withDisambiguationSettings(disBuilder.build());

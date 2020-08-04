@@ -93,21 +93,28 @@ abstract class EntityLookup {
       throws IOException, EntityLinkingDataAccessException;
 
   public void fillInCandidateEntities(Mentions conceptMentions, Mentions namedEntityMentions,
+                                      CandidateDictionary externalDictionary, Set<KBIdentifiedEntity> blacklistedEntities,
+                                      boolean includeNullEntityCandidates, boolean includeContextMentions,
+                                      double maxEntityRank, int topByPrior, boolean mentionIsPrefix) throws SQLException, IOException, EntityLinkingDataAccessException, AidaUnsupportedLanguageException {
+    fillInCandidateEntities(conceptMentions, namedEntityMentions, externalDictionary, blacklistedEntities, includeNullEntityCandidates, includeContextMentions, maxEntityRank, topByPrior, mentionIsPrefix, null);
+  }
+
+  public void fillInCandidateEntities(Mentions conceptMentions, Mentions namedEntityMentions,
       CandidateDictionary externalDictionary, Set<KBIdentifiedEntity> blacklistedEntities,
       boolean includeNullEntityCandidates, boolean includeContextMentions,
-      double maxEntityRank, int topByPrior, boolean mentionIsPrefix) throws SQLException, IOException, EntityLinkingDataAccessException, AidaUnsupportedLanguageException {
+      double maxEntityRank, int topByPrior, boolean mentionIsPrefix, String textTopic) throws SQLException, IOException, EntityLinkingDataAccessException, AidaUnsupportedLanguageException {
 
     fillInCandidateEntities(conceptMentions, externalDictionary, blacklistedEntities, includeNullEntityCandidates,
-        includeContextMentions, maxEntityRank, topByPrior, mentionIsPrefix, false);
+        includeContextMentions, maxEntityRank, topByPrior, mentionIsPrefix, textTopic,false);
 
     fillInCandidateEntities(namedEntityMentions, externalDictionary, blacklistedEntities, includeNullEntityCandidates,
-        includeContextMentions, maxEntityRank, topByPrior, mentionIsPrefix, true);
+        includeContextMentions, maxEntityRank, topByPrior, mentionIsPrefix, textTopic,true);
   }
 
   public void fillInCandidateEntities(Mentions mentions,
       CandidateDictionary externalDictionary, Set<KBIdentifiedEntity> blacklistedEntities,
       boolean includeNullEntityCandidates, boolean includeContextMentions,
-      double maxEntityRank, int topByPrior, boolean mentionIsPrefix, boolean isNamedEntity)
+      double maxEntityRank, int topByPrior, boolean mentionIsPrefix, String textTopic, boolean isNamedEntity)
       throws SQLException, IOException, EntityLinkingDataAccessException, AidaUnsupportedLanguageException {
     String logMsg = "Retrieving candidates with max global rank of " + maxEntityRank + ".";
     if (topByPrior > 0) {
@@ -153,7 +160,7 @@ abstract class EntityLookup {
           }
 
           int candidateCount = mentionCandidateEntities.size();
-          mentionCandidateEntities = filterEntitiesByType(mentionCandidateEntities, filteringTypes);
+          mentionCandidateEntities = filterEntitiesByType(mentionCandidateEntities, filteringTypes, textTopic, isNamedEntity);
           int filteredCandidateCount = mentionCandidateEntities.size();
           if (filteredCandidateCount < candidateCount) {
             Counter.incrementCountByValue("MENTION_CANDIDATE_FILTERED_BY_TYPE", candidateCount - filteredCandidateCount);
@@ -250,8 +257,14 @@ abstract class EntityLookup {
    * @param filteringTypes Set of types to filter the entities against
    * @return filtered entities
    */
-  private Entities filterEntitiesByType(Entities entities, Set<Type> filteringTypes) throws EntityLinkingDataAccessException {
-    if (filteringTypes == null) {
+  private Entities filterEntitiesByType(Entities entities, Set<Type> filteringTypes, String textTopic, boolean isNamedEntity) throws EntityLinkingDataAccessException {
+    //TODO: I could make something hard coded here!!! to read the types from file... maybe for different things would be different. using textTopic and isNE
+    // TODO: we could do this in the Preprator (to set the filteringTypes there and viola... LEt's try that. and then maybe remove all these changes
+    Set<Type> staticFilterTypes = new HashSet<Type>();
+    staticFilterTypes.add(new Type("YAGO3", "wordnet_movie_106613686"));
+    logger_.debug(""+staticFilterTypes);
+
+    if (filteringTypes == null && staticFilterTypes.size() == 0) {//its not working / test it later
       return entities;
     }
     Entities filteredEntities = new Entities();
@@ -267,6 +280,7 @@ abstract class EntityLookup {
         }
       }
     }
+    logger_.debug(""+filteredEntities);
     return filteredEntities;
   }
 

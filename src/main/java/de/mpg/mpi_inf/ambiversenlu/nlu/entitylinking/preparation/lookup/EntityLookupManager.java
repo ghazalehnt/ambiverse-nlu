@@ -69,6 +69,13 @@ public class EntityLookupManager {
     fillInCandidateEntities(conceptMentions, namedEntityMentions, null, null, includeNullEntityCandidates, includeContextMentions, maxEntityRank, 0, false);
   }
 
+  public void fillInCandidateEntities(Mentions conceptMentions, Mentions namedEntityMentions, CandidateDictionary externalDictionary, Set<KBIdentifiedEntity> blacklistedEntities,
+                                      boolean includeNullEntityCandidates, boolean includeContextMentions, double maxEntityRank, int topByPrior, boolean mentionIsPrefix)
+          throws SQLException, IOException, EntityLinkingDataAccessException, AidaUnsupportedLanguageException {
+    fillInCandidateEntities(conceptMentions, namedEntityMentions, externalDictionary, blacklistedEntities, includeNullEntityCandidates, includeContextMentions,
+    maxEntityRank, topByPrior, mentionIsPrefix, null);
+  }
+
   /**
    * Retrieves all the candidate entities for the given mentions.
    *
@@ -88,11 +95,11 @@ public class EntityLookupManager {
   public void fillInCandidateEntities(Mentions conceptMentions, Mentions namedEntityMentions, CandidateDictionary externalDictionary,
                                       Set<KBIdentifiedEntity> blacklistedEntities,
                                       boolean includeNullEntityCandidates, boolean includeContextMentions,
-                                      double maxEntityRank, int topByPrior, boolean mentionIsPrefix)
+                                      double maxEntityRank, int topByPrior, boolean mentionIsPrefix, String textTopic)
       throws SQLException, IOException, EntityLinkingDataAccessException, AidaUnsupportedLanguageException {
     lookupInst.fillInCandidateEntities(
             conceptMentions, namedEntityMentions, externalDictionary, blacklistedEntities,
             includeNullEntityCandidates, includeContextMentions,
-            maxEntityRank, topByPrior, mentionIsPrefix);
+            maxEntityRank, topByPrior, mentionIsPrefix, textTopic);
   }
 }

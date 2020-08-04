@@ -55,6 +55,10 @@ public class AnalyzeInputUtils {
 //      disBuilder.withFilteringTypes(filteringTypes.toArray(new Type[0]));
 //    }
 
+    if (input.getTextTopic() != null) {
+      disBuilder.withTextTopic(input.getTextTopic());
+    }
+
     docBuilder.withDisambiguationSettings(disBuilder.build());
     docBuilder.withAnnotations(getDocumentAnnotationsfromAnalyzeInput(input));
 

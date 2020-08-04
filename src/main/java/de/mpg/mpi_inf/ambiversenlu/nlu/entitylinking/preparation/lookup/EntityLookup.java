@@ -153,7 +153,7 @@ abstract class EntityLookup {
           }
 
           int candidateCount = mentionCandidateEntities.size();
-          mentionCandidateEntities = filterEntitiesByType(mentionCandidateEntities, filteringTypes);
+          mentionCandidateEntities = filterEntitiesByType(mentionCandidateEntities, filteringTypes, isNamedEntity);
           int filteredCandidateCount = mentionCandidateEntities.size();
           if (filteredCandidateCount < candidateCount) {
             Counter.incrementCountByValue("MENTION_CANDIDATE_FILTERED_BY_TYPE", candidateCount - filteredCandidateCount);
@@ -250,23 +250,39 @@ abstract class EntityLookup {
    * @param filteringTypes Set of types to filter the entities against
    * @return filtered entities
    */
-  private Entities filterEntitiesByType(Entities entities, Set<Type> filteringTypes) throws EntityLinkingDataAccessException {
-    if (filteringTypes == null) {
-      return entities;
-    }
+  private Entities filterEntitiesByType(Entities entities, Set<Type> filteringTypes, boolean isNamedEntity) throws EntityLinkingDataAccessException {
+	Set<Type> staticFilterTypes = new HashSet<Type>();
+	if (isNamedEntity) {
+		staticFilterTypes.add(new Type("YAGO3", "<wordnet_movie_106613686>"));
+		staticFilterTypes.add(new Type("YAGO3", "<wordnet_writing_106362953>"));
+	}
+	logger_.debug(""+staticFilterTypes);
+//    if (filteringTypes == null) {
+//      return entities;
+//    }
+    logger_.debug("entities: "+entities);
     Entities filteredEntities = new Entities();
     TIntObjectHashMap<Set<Type>> entitiesTypes = DataAccess.getTypes(entities);
     for (TIntObjectIterator<Set<Type>> itr = entitiesTypes.iterator(); itr.hasNext(); ) {
       itr.advance();
       int id = itr.key();
       Set<Type> entityTypes = itr.value();
+      logger_.debug("EntityTypes: "+id+" - "+entityTypes);
       for (Type t : entityTypes) {
-        if (filteringTypes.contains(t)) {
+        if (filteringTypes != null && filteringTypes.contains(t)) {
           filteredEntities.add(entities.getEntityById(id));
           break;
         }
+	if (staticFilterTypes.contains(t)) {
+	 filteredEntities.add(entities.getEntityById(id));
+         break;
+	}
       }
     }
+    if (filteringTypes == null && staticFilterTypes.size() == 0) {
+      return entities;
+    }
+    logger_.debug(""+filteredEntities);
     return filteredEntities;
   }
 

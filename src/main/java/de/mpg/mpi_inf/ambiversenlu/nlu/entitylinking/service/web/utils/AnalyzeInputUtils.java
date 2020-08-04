@@ -11,6 +11,7 @@ import de.mpg.mpi_inf.ambiversenlu.nlu.model.util.DocumentAnnotations;
 import de.mpg.mpi_inf.ambiversenlu.nlu.tools.javatools.parsers.LanguageNotSupportedException;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AnalyzeInputUtils {
 
@@ -47,8 +48,12 @@ public class AnalyzeInputUtils {
     if (confidenceThreshold != null) {
       disBuilder.withNullMappingThreshold(confidenceThreshold);
     }
-
-    disBuilder.withFilteringTypes(input.getFilteringTypes().toArray(new Type[0]));
+    
+    List<Type>  filteringTypes = input.getFilteringTypes();
+    if (filteringTypes != null) {
+    	System.out.println("HERE: " + filteringTypes);
+	disBuilder.withFilteringTypes(filteringTypes.toArray(new Type[0]));
+    }
 
     docBuilder.withDisambiguationSettings(disBuilder.build());
     docBuilder.withAnnotations(getDocumentAnnotationsfromAnalyzeInput(input));

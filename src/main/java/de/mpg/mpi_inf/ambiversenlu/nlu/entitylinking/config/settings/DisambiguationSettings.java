@@ -43,7 +43,7 @@ public class DisambiguationSettings implements Serializable {
    */
   private String textTopic;
 
-  private Type[] filteringTypes;
+//  private Type[] filteringTypes;
 
   /**
    * Technique to solve the disambiguation graph with. Most commonly this
@@ -273,13 +273,13 @@ public class DisambiguationSettings implements Serializable {
     this.minMentionOccurrenceCount = minMentionOccurrenceCount;
   }
 
-  public Type[] getFilteringTypes() {
-    return filteringTypes;
-  }
-
-  public void setFilteringTypes(Type[] filteringTypes) {
-    this.filteringTypes = filteringTypes;
-  }
+//  public Type[] getFilteringTypes() {
+//    return filteringTypes;
+//  }
+//
+//  public void setFilteringTypes(Type[] filteringTypes) {
+//    this.filteringTypes = filteringTypes;
+//  }
 
   public void setDisambiguationMethod(DISAMBIGUATION_METHOD dm) {
     disambiguationMethod = dm;
@@ -453,9 +453,9 @@ public class DisambiguationSettings implements Serializable {
 //      ds.getGraphSettings().setCoherenceSimilaritySettingC(unnormalizedKPsettings);
     }
 
-    if (builder.filteringTypes != null) {
-      ds.setFilteringTypes(builder.filteringTypes);
-    }
+//    if (builder.filteringTypes != null) {
+//      ds.setFilteringTypes(builder.filteringTypes);
+//    }
           
     return ds;
   }

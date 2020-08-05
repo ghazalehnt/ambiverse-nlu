@@ -16,9 +16,14 @@ import de.mpg.mpi_inf.ambiversenlu.nlu.lsh.LSH;
 import de.mpg.mpi_inf.ambiversenlu.nlu.lsh.LSHStringNgramFeatureExtractor;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.hash.TIntObjectHashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -36,7 +41,17 @@ abstract class EntityLookup {
   private static Map<Language, LSH<String>> lshEntityLookup_ = new HashMap<>();
 
   private LanguageSettings languageSettings;
+  
+  private static Map<String, Set<Type>> staticTopicalTypeRestriction = new HashMap<String, Set<Type>>();
+  private static Map<String, String> staticTopicalTypeRestrictionFiles = new HashMap<String, String>();
+  static {
+    staticTopicalTypeRestrictionFiles.put("movie", "src/main/resources/typefiltering/movie");
+    staticTopicalTypeRestrictionFiles.put("travel", "src/main/resources/typefiltering/travel");
+    staticTopicalTypeRestrictionFiles.put("book", "src/main/resources/typefiltering/book");
+    staticTopicalTypeRestrictionFiles.put("food", "src/main/resources/typefiltering/food");
+  }
 
+  
   protected static final Set<String> malePronouns = new HashSet<String>() {
 
     private static final long serialVersionUID = 2L;
@@ -260,27 +275,71 @@ abstract class EntityLookup {
   private Entities filterEntitiesByType(Entities entities, Set<Type> filteringTypes, String textTopic, boolean isNamedEntity) throws EntityLinkingDataAccessException {
     //TODO: I could make something hard coded here!!! to read the types from file... maybe for different things would be different. using textTopic and isNE
     // TODO: we could do this in the Preprator (to set the filteringTypes there and viola... LEt's try that. and then maybe remove all these changes
-    Set<Type> staticFilterTypes = new HashSet<Type>();
-    staticFilterTypes.add(new Type("YAGO3", "wordnet_movie_106613686"));
-    logger_.debug(""+staticFilterTypes);
-
-    if (filteringTypes == null && staticFilterTypes.size() == 0) {//its not working / test it later
-      return entities;
+  Set<Type> staticFilterTypes = new HashSet<Type>();
+  if (textTopic != null) {
+    if (isNamedEntity) {
+      if (staticTopicalTypeRestriction.containsKey(textTopic)) {
+        staticFilterTypes.addAll(staticTopicalTypeRestriction.get(textTopic));
+      }
+      else {
+        // Read the file
+        if (staticTopicalTypeRestrictionFiles.containsKey(textTopic)) {
+          File file = new File(staticTopicalTypeRestrictionFiles.get(textTopic)); 
+          
+          BufferedReader br=null;
+          try {
+            br = new BufferedReader(new FileReader(file));
+          } catch (FileNotFoundException e1) {
+            logger_.error("fail in opening the filteringtypes");
+            e1.printStackTrace();
+          } 
+          
+          try {
+            String typename;
+            while ((typename = br.readLine()) != null) {
+              staticFilterTypes.add(new Type("YAGO3", typename));
+            }
+          } catch (IOException e) {
+            logger_.error("fail while reading the filteringtypes");
+            e.printStackTrace();
+          }
+          
+          staticTopicalTypeRestriction.put(textTopic, (Set<Type>) ((HashSet<Type>) staticFilterTypes).clone());
+        }
+        
+      }
     }
+  }
+	
+	logger_.info(""+staticFilterTypes);
+	
+//	if (filteringTypes == null && staticFilterTypes.size() == 0) {
+//    return entities;
+//  }
+    logger_.info("entities: "+entities);
+
     Entities filteredEntities = new Entities();
     TIntObjectHashMap<Set<Type>> entitiesTypes = DataAccess.getTypes(entities);
     for (TIntObjectIterator<Set<Type>> itr = entitiesTypes.iterator(); itr.hasNext(); ) {
       itr.advance();
       int id = itr.key();
       Set<Type> entityTypes = itr.value();
+      logger_.info("EntityTypes: "+id+" - "+entityTypes);
       for (Type t : entityTypes) {
-        if (filteringTypes.contains(t)) {
+        if (filteringTypes != null && filteringTypes.contains(t)) {
+          filteredEntities.add(entities.getEntityById(id));
+          break;
+        }
+        if (staticFilterTypes.contains(t)) {
           filteredEntities.add(entities.getEntityById(id));
           break;
         }
       }
     }
-    logger_.debug(""+filteredEntities);
+    if (filteringTypes == null && staticFilterTypes.size() == 0) {
+      return entities;
+    }
+    logger_.info(""+filteredEntities);
     return filteredEntities;
   }
 

@@ -63,7 +63,8 @@ public class ChunkDisambiguator implements Callable<ChunkDisambiguationResults> 
         settings_.isIncludeContextMentions(),
         settings_.getMaxEntityRank(),
         settings_.getMaxCandidatesPerEntityByPrior(),
-        settings_.isMentionLookupPrefix());
+        settings_.isMentionLookupPrefix(),
+        settings_.getTextTopic());
 
     Map<ResultMention, List<ResultEntity>> mentionMappings = null;
     DisambiguationAlgorithm da = null;

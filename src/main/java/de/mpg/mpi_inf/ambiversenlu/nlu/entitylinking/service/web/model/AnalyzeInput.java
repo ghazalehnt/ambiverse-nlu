@@ -74,10 +74,10 @@ import java.util.Map;
    */
   @JsonProperty("annotatedMentionsC") private List<AnnotatedMention> annotatedMentionsC;
 
-  /**
-   * Filtering Types provided by user at runtime
-   */
-  @JsonProperty("filteringTypes") private List<Type> filteringTypes;
+//  /**
+//   * Filtering Types provided by user at runtime
+//   */
+//  @JsonProperty("filteringTypes") private List<Type> filteringTypes;
 
   @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

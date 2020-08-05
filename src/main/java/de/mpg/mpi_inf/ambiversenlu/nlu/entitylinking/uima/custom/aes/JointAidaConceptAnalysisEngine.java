@@ -117,7 +117,6 @@ public class JointAidaConceptAnalysisEngine extends JCasAnnotator_ImplBase {
     try {
       logger.debug("Disambiguating...");
       logger.debug(disSettings.toStringBeautiful());
-      logger.debug("FilteringTypes: "+disSettings.getFilteringTypes());
       results = disambiguator.disambiguate();
       if(disSettings.getTracingTarget() != null) {
         tracer.writeSimilarityOutput(false, false);

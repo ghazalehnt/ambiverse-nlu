@@ -37,7 +37,7 @@ public enum PipelineType {
   FACT_ENTITY_CONCEPT_SALIENCE_STANFORD(new FactsEntityConceptSalienceStanford()),
 
   ENTITY_CONCEPT_SEPARATE_LINKING(new EntityConceptSeparateLinking()),
-  ENTITY_CONCEPT_JOINT_LINKING(new EntityConceptSeparateLinking()),
+  ENTITY_CONCEPT_JOINT_LINKING(new EntityConceptJointLinking()),
 
   OPENFACT_EXTRACTION_EN(new OpenFactExtractionEN()),
 

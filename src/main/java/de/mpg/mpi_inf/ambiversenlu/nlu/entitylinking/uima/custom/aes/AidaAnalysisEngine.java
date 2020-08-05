@@ -152,7 +152,6 @@ public class AidaAnalysisEngine extends JCasAnnotator_ImplBase {
     try {
       logger.debug("Disambiguating...");
       logger.debug(disSettings.toStringBeautiful());
-      logger.debug("FilteringTypes: "+disSettings.getFilteringTypes());
       results = disambiguator.disambiguate();
       if (disSettings.getTracingTarget() != null) {
         logger.debug("Writing trace output ...");

@@ -42,17 +42,18 @@ public class Preparator {
     PreparedInput preparedInput =
         chunker.process(docId, tokens, conceptMentions, namedEntityMentions, resultMentionMap);
 
-    Type[] types = settings.getFilteringTypes();//TODO maybe it's better to do the reading from file here!?
-    if (types != null) {
-      Set<Type> filteringTypes = new HashSet<Type>(Arrays.asList(settings.getFilteringTypes()));
-      preparedInput.setMentionEntitiesTypes(filteringTypes);
-    }
-    String textTopic = settings.getTextTopic();
-    if (types == null && textTopic!= null) {
-      //TODO read from file...
-
-    }
-    
+//    Type[] types = settings.getFilteringTypes();//TODO maybe it's better to do the reading from file here!?
+//    if (types != null) {
+//      Set<Type> filteringTypes = new HashSet<Type>(Arrays.asList(settings.getFilteringTypes()));
+//      preparedInput.setMentionEntitiesTypes(filteringTypes);
+//    }
+   
+//    String textTopic = settings.getTextTopic();
+//    if (textTopic!= null) {
+//      //TODO read from file...
+//
+//    }
+//    
     RunningTimer.recordEndTime("Preparator", runningId);
     double runTime = System.currentTimeMillis() - startTime;
     logger_.info("Document '" + docId + "' prepared in " + 

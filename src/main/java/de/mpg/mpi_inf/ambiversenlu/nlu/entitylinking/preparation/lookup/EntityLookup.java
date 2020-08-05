@@ -280,20 +280,19 @@ abstract class EntityLookup {
     if (isNamedEntity) {
       if (staticTopicalTypeRestriction.containsKey(textTopic)) {
         staticFilterTypes.addAll(staticTopicalTypeRestriction.get(textTopic));
-      }
-      else {
+      } else {
         // Read the file
         if (staticTopicalTypeRestrictionFiles.containsKey(textTopic)) {
-          File file = new File(staticTopicalTypeRestrictionFiles.get(textTopic)); 
-          
-          BufferedReader br=null;
+          File file = new File(staticTopicalTypeRestrictionFiles.get(textTopic));
+
+          BufferedReader br = null;
           try {
             br = new BufferedReader(new FileReader(file));
           } catch (FileNotFoundException e1) {
             logger_.error("fail in opening the filteringtypes");
             e1.printStackTrace();
-          } 
-          
+          }
+
           try {
             String typename;
             while ((typename = br.readLine()) != null) {
@@ -303,20 +302,18 @@ abstract class EntityLookup {
             logger_.error("fail while reading the filteringtypes");
             e.printStackTrace();
           }
-          
+
           staticTopicalTypeRestriction.put(textTopic, (Set<Type>) ((HashSet<Type>) staticFilterTypes).clone());
         }
-        
+
       }
     }
   }
-	
-	logger_.info(""+staticFilterTypes);
-	
-//	if (filteringTypes == null && staticFilterTypes.size() == 0) {
-//    return entities;
-//  }
-    logger_.info("entities: "+entities);
+  if (filteringTypes == null && staticFilterTypes.size() == 0) {
+    return entities;
+  }
+//	logger_.info(""+staticFilterTypes);
+//    logger_.info("entities: "+entities);
 
     Entities filteredEntities = new Entities();
     TIntObjectHashMap<Set<Type>> entitiesTypes = DataAccess.getTypes(entities);
@@ -336,10 +333,7 @@ abstract class EntityLookup {
         }
       }
     }
-    if (filteringTypes == null && staticFilterTypes.size() == 0) {
-      return entities;
-    }
-    logger_.info(""+filteredEntities);
+//    logger_.info(""+filteredEntities);
     return filteredEntities;
   }
 

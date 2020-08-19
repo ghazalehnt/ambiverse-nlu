@@ -310,13 +310,11 @@ abstract class EntityLookup {
       }
     }
   }
-	
-	logger_.info(""+staticFilterTypes);
-	
-//	if (filteringTypes == null && staticFilterTypes.size() == 0) {
-//    return entities;
-//  }
-    logger_.info("entities: "+entities);
+  if (filteringTypes == null && staticFilterTypes.size() == 0) {
+    return entities;
+  }
+//	logger_.info(""+staticFilterTypes);
+//    logger_.info("entities: "+entities);
 
     Entities filteredEntities = new Entities();
     TIntObjectHashMap<Set<Type>> entitiesTypes = DataAccess.getTypes(entities);
@@ -324,7 +322,7 @@ abstract class EntityLookup {
       itr.advance();
       int id = itr.key();
       Set<Type> entityTypes = itr.value();
-      logger_.info("EntityTypes: "+id+" - "+entityTypes);
+//      logger_.info("EntityTypes: "+id+" - "+entityTypes);
       for (Type t : entityTypes) {
         if (filteringTypes != null && filteringTypes.contains(t)) {
           filteredEntities.add(entities.getEntityById(id));
@@ -336,10 +334,7 @@ abstract class EntityLookup {
         }
       }
     }
-    if (filteringTypes == null && staticFilterTypes.size() == 0) {
-      return entities;
-    }
-    logger_.info(""+filteredEntities);
+//  logger_.info(""+filteredEntities);
     return filteredEntities;
   }
 

@@ -107,7 +107,7 @@ public class ConceptSpotter extends JCasAnnotator_ImplBase {
     // Here all concept candidates including the ones that might have overlap with each other or with NEs are generated.
     // Elimination of overlaps/shared with NEs, should be done in Concept Filters.
     try {
-      Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie[language.getID()], text,tokenBegin, tokenEnd, MATCHING_RATIO);
+      Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie[language.getID()], text,tokenBegin, tokenEnd, MATCHING_RATIO, false);
       for (Spot spot : spots) {
         String mentionSpotted = Utils.getStringbyKey(spot.getMatch(), trie[language.getID()]);
         String mention = text.substring(spot.getBegin(), spot.getEnd());

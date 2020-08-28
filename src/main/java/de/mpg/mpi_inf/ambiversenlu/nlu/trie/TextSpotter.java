@@ -8,8 +8,8 @@ import java.util.*;
 
 public class TextSpotter {
   public static Set<Spot> spotTrieEntriesInTextIgnoreCase(FST<Long> trie, String text, Set<Integer> tokenBeginningPositionss,
-                                                          Set<Integer> tokenEndingPositionss, double fuzzyMatchingRatio) throws IOException {
-    return spotTrieEntriesInTextIgnoreCase(trie, text, tokenBeginningPositionss, tokenEndingPositionss, fuzzyMatchingRatio, false);
+                                                          Set<Integer> tokenEndingPositionss, double fuzzyMatchingRatio, boolean isNamedEntity) throws IOException {
+    return spotTrieEntriesInText(trie, text, tokenBeginningPositionss, tokenEndingPositionss, fuzzyMatchingRatio, false, isNamedEntity);
   }
 
   /**
@@ -19,15 +19,22 @@ public class TextSpotter {
    * @param tokenBeginningPositionss The begining positions of the tokens in the text
    * @param tokenEndingPositionss Ending character offset of the tokens
    * @param fuzzyMatchingRatio The matching tolerance (e.g., 1 means exact matching)
+   * @param caseSensitive Whether the matching is case sensitive.
+   * @param isNamedEntity Whether the mention dictionary is named entity or concept.
    * @return A set of spots containing, the end and begging position of the match plus the dictionary item
    * @throws IOException
    */
-  public static Set<Spot> spotTrieEntriesInTextIgnoreCase(FST<Long> trie, String text, Set<Integer> tokenBeginningPositionss,
-      Set<Integer> tokenEndingPositionss, double fuzzyMatchingRatio, boolean caseSensitive) throws IOException {
+  public static Set<Spot> spotTrieEntriesInText(FST<Long> trie, String text, Set<Integer> tokenBeginningPositionss,
+      Set<Integer> tokenEndingPositionss, double fuzzyMatchingRatio, boolean caseSensitive, boolean isNamedEntity) throws IOException {
 
     String textToMatch = text;
     if(!caseSensitive) {
-      textToMatch = text.toLowerCase();
+      if (isNamedEntity) {
+        textToMatch = text.toUpperCase();
+      }
+      else {
+        textToMatch = text.toLowerCase();
+      }
     }
 
     final byte[] bytes = new BytesRef(textToMatch).bytes;

@@ -2074,11 +2074,14 @@ public class DataAccessSQL implements DataAccessInterface {
 
   @Override public Set<String> getMentionsforLanguage(Language language, Boolean isNamedEntity, int limit) throws EntityLinkingDataAccessException {
     Set<String> result = new HashSet<>();
-    EntityType entityType;
-    if (isNamedEntity) {
-      entityType = EntityType.NAMED_ENTITY;
-    } else {
-      entityType = EntityType.CONCEPT;
+    EntityType entityType = null;
+    if (isNamedEntity != null) {
+      if (isNamedEntity) {
+        entityType = EntityType.NAMED_ENTITY;
+      } else {
+        entityType = EntityType.CONCEPT;
+
+      }
     }
     Connection con = null;
     Statement stmt = null;

@@ -88,7 +88,11 @@ public enum Component {
   FILTER_CONCEPTS_BY_CATS_NEs(FilterConceptsByCategories.class, FilterConceptsByCategories.FILTER_NEs, true),//Filter NEs and concepts not containing top Categories.
   FILTER_CONCEPTS_BY_CATS(FilterConceptsByCategories.class, FilterConceptsByCategories.FILTER_NEs, false),//Filter concepts not containing top Categories (Joint).
   FILTER_CONCEPTS_BY_DOMAIN_WORDS_NEs(FilterConceptsByDomainWords.class, FilterConceptsByDomainWords.FILTER_NEs, true),//Filter NEs and concepts not in Domain Words of NEs.
-  FILTER_CONCEPTS_BY_DOMAIN_WORDS(FilterConceptsByDomainWords.class, FilterConceptsByDomainWords.FILTER_NEs, false);//Filter concepts not in Domain Words of NEs.
+  FILTER_CONCEPTS_BY_DOMAIN_WORDS(FilterConceptsByDomainWords.class, FilterConceptsByDomainWords.FILTER_NEs, false),//Filter concepts not in Domain Words of NEs.
+
+  ENTITY_SPOTTER_EXACT(NamedEntitySpotter.class, NamedEntitySpotter.PARAM_MATCHING_RATIO, (float) 1.0),
+  FILTER_ENTITIES_BY_POS_NOUNPHRASES(FilterNamedEntitiesByPOStagsNounPhrases.class),
+  FILTER_ENTITIES_BY_NOTHING(FilterNamedEntitiesByNothing.class);
 
 
   public Class<? extends JCasAnnotator_ImplBase> component;

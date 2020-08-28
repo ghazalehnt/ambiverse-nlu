@@ -46,7 +46,7 @@ public class ExtractGraph {
     mentions = m;
     uniqueEntities = ue;
     entitySimilarity = eeSim;
-    nodesCount = m.getMentions().size() + ue.size();
+    nodesCount = m.size() + ue.size();
     graph = new Graph(graphName, nodesCount, alpha);
 
   }

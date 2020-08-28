@@ -321,7 +321,7 @@ abstract class EntityLookup {
       itr.advance();
       int id = itr.key();
       Set<Type> entityTypes = itr.value();
-      logger_.info("EntityTypes: "+id+" - "+entityTypes);
+//      logger_.info("EntityTypes: "+id+" - "+entityTypes);
       for (Type t : entityTypes) {
         if (filteringTypes != null && filteringTypes.contains(t)) {
           filteredEntities.add(entities.getEntityById(id));

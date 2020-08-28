@@ -605,7 +605,7 @@ public class DataAccess {
     return languages.toArray(new Language[languages.size()]);
   }
 
-  public static Set<String> getMentionsforLanguage(Language language, boolean isNamedEntity) throws EntityLinkingDataAccessException {
+  public static Set<String> getMentionsforLanguage(Language language, Boolean isNamedEntity) throws EntityLinkingDataAccessException {
     return DataAccess.getInstance().getMentionsforLanguage(language, isNamedEntity, 0);
   }
 

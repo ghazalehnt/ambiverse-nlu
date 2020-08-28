@@ -38,6 +38,8 @@ public enum PipelineType {
 
   ENTITY_CONCEPT_SEPARATE_LINKING(new EntityConceptSeparateLinking()),
   ENTITY_CONCEPT_JOINT_LINKING(new EntityConceptJointLinking()),
+  ENTITY_CONCEPT_SPOTTING_SEPARATE_DISAMBIGUATION(new EntityConceptSpottingSeparateDisambiguation()),
+  ENTITY_CONCEPT_SPOTTING_JOINT_DISAMBIGUATION(new EntityConceptSpottingJointDisambiguation()),
 
   OPENFACT_EXTRACTION_EN(new OpenFactExtractionEN()),
 

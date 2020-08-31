@@ -37,7 +37,7 @@ public class TextSpotterTest {
 
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Германия".toLowerCase()));
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 1.0);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 1.0, false);
 		assertEquals(1, spots.size());
 	}
 
@@ -47,7 +47,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Германие".toLowerCase())); //87.5% match
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.8);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.8, false);
 		assertEquals(1, spots.size());
 		Spot spot = spots.iterator().next();
 		assertEquals("Германия", sentenceText.substring(spot.getBegin(), spot.getEnd()));
@@ -59,7 +59,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Einstei1".toLowerCase())); //87.5% match
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.8);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.8, false);
 		assertEquals(1, spots.size());
 		Spot spot = spots.iterator().next();
 		assertEquals("Einstein", sentenceText.substring(spot.getBegin(), spot.getEnd()));
@@ -71,7 +71,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Нобелевской премии".toLowerCase())); //87.5% match
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.9);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.9, false);
 		assertEquals(1, spots.size());
 		Spot spot = spots.iterator().next();
 		assertEquals("Нобелевской премии", sentenceText.substring(spot.getBegin(), spot.getEnd()));
@@ -84,7 +84,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Alber1 Einstei2".toLowerCase())); //76.47% match
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.90);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.90, false);
 		assertEquals(1, spots.size());
 		Spot spot = spots.iterator().next();
 		assertEquals("Albert Einstein", sentenceText.substring(spot.getBegin(), spot.getEnd()));
@@ -96,7 +96,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("ECB".toLowerCase()));
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.9);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.9, false);
 		assertEquals(1, spots.size());
 		Spot spot = spots.iterator().next();
 		assertEquals("ECB1", sentenceText.substring(spot.getBegin(), spot.getEnd()));
@@ -108,7 +108,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("ECB".toLowerCase()));
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText2, begins, ends, 0.9);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText2, begins, ends, 0.9, false);
 		assertEquals(0, spots.size());
 	}
 
@@ -118,7 +118,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Gates".toLowerCase()));
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.8);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.8, false);
 		assertEquals(1, spots.size());
 		Spot spot = spots.iterator().next();
 		assertEquals("Gatess", sentenceText.substring(spot.getBegin(), spot.getEnd()));
@@ -130,7 +130,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Gates".toLowerCase()));
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText2, begins, ends, 0.8);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText2, begins, ends, 0.8, false);
 		assertEquals(0, spots.size());
 	}
 
@@ -140,7 +140,7 @@ public class TextSpotterTest {
 		Set<String> sortedMentions = new TreeSet<>(Collections.singletonList("Merkel".toLowerCase()));
 		FST<Long> trie = TrieBuilder.buildTrie(sortedMentions);
 
-		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.9);
+		Set<Spot> spots = TextSpotter.spotTrieEntriesInTextIgnoreCase(trie, sentenceText, begins, ends, 0.9, false);
 		assertEquals(0, spots.size());
 	}
 

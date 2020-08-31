@@ -41,7 +41,7 @@ public class TrieTest {
       begginingPositions.add(token.getBeginIndex());
       endingPrositions.add(token.getEndIndex());
     }
-    Set<Spot> spots =  TextSpotter.spotTrieEntriesInTextIgnoreCase(trie,text,begginingPositions,endingPrositions,0.9);
+    Set<Spot> spots =  TextSpotter.spotTrieEntriesInTextIgnoreCase(trie,text,begginingPositions,endingPrositions,0.9, false);
     assertEquals(spots.size(), 2);
     ListMultimap<String, Spot> results = ArrayListMultimap.create();
     for(Spot spot : spots) {
@@ -83,7 +83,7 @@ public class TrieTest {
       begginingPositions.add(token.getBeginIndex());
       endingPrositions.add(token.getEndIndex());
     }
-    Set<Spot> spots =  TextSpotter.spotTrieEntriesInTextIgnoreCase(trie,text,begginingPositions,endingPrositions,0.9);
+    Set<Spot> spots =  TextSpotter.spotTrieEntriesInTextIgnoreCase(trie,text,begginingPositions,endingPrositions,0.9, false);
     assertEquals(spots.size(), 6);
     ListMultimap<String, Spot> results = ArrayListMultimap.create();
     for(Spot spot : spots) {
